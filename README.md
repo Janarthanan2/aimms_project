@@ -24,7 +24,7 @@ AIMMS (AI Integrated Money Management System) is a project designed to integrate
 - **IDE**: Use of VSCode or IntelliJ IDEA.
 
 ## System Architecture
-*(Placeholder for Architecture Diagram)*
+<img src="https://github.com/Janarthanan2/AIMMS/blob/main/Architecture.png">
 
 ## Output
 ### Output 1 - Dashboard View
