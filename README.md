@@ -31,8 +31,8 @@ AIMMS (AI Integrated Money Management System) is a project designed to integrate
 <img src="dash.png">
 
 ### Detection Accuracy
-- **OCR Accuracy**: ~95%
-- **Categorization Accuracy**: ~92%
+- **OCR Accuracy**:  ~95%
+- **Categorization Accuracy**:  ~92%
 *Note: These metrics are based on initial validation datasets.*
 
 ## Results and Impact
