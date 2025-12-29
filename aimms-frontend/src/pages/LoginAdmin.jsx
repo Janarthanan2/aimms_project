@@ -18,6 +18,7 @@ export default function LoginAdmin() {
             const admin = await loginAdmin(email, password)
 
             localStorage.setItem('userType', 'admin')
+            localStorage.setItem('token', admin.token) // Store JWT Token
             localStorage.setItem('userId', admin.id || admin.adminId)
             localStorage.setItem('userName', admin.name)
             localStorage.setItem('userEmail', admin.email)

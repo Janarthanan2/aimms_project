@@ -30,14 +30,13 @@ export default function OCR() {
     try {
       // The backend endpoint is /api/ocr/upload. 
       // API base URL is http://localhost:8080/api
-      const response = await API.post('/ocr/upload', formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      })
+      const response = await API.post('/ocr/upload', formData)
       setResult(response.data)
     } catch (err) {
-      setError('Failed to extract data. Please try again.')
+      const token = localStorage.getItem('token')
+      const tokenStatus = !token ? 'Missing' : token === 'undefined' ? 'UNDEFINED' : 'Present'
+      const msg = err.response?.data?.message || err.message || 'Failed to extract data'
+      setError(`Error: ${msg} (Status: ${err.response?.status}, Token: ${tokenStatus})`)
       console.error(err)
     } finally {
       setLoading(false)
@@ -87,8 +86,8 @@ export default function OCR() {
             onClick={handleUpload}
             disabled={!selectedFile || loading}
             className={`w-full py-3 px-4 rounded-lg font-semibold text-white transition-all transform hover:scale-[1.02] ${!selectedFile || loading
-                ? 'bg-gray-400 cursor-not-allowed'
-                : 'bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 shadow-md'
+              ? 'bg-gray-400 cursor-not-allowed'
+              : 'bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 shadow-md'
               }`}
           >
             {loading ? (

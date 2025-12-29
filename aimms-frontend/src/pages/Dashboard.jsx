@@ -92,9 +92,9 @@ export default function Dashboard() {
       <div className="flex justify-between items-start">
         <div>
           <h1 className="text-3xl font-display font-bold text-white">
-            Welcome back, <span className="bg-gradient-to-r from-amber-300 to-orange-400 bg-clip-text text-transparent">{userName}</span>
+            Welcome back, <span className="bg-gradient-to-r from-lime-400 to-yellow-400 bg-clip-text text-transparent">{userName}</span>
           </h1>
-          <p className="text-white/60 mt-1">
+          <p className="text-yellow-50/80 mt-1 font-medium">
             Here is your financial forecast for today.
           </p>
         </div>
@@ -161,7 +161,7 @@ export default function Dashboard() {
                       <Cell key={`cell-${index}`} fill={entry.color} />
                     ))}
                   </Bar>
-                  <Bar dataKey="limit" name="Budget Limit" fill="rgba(255,255,255,0.1)" radius={[0, 4, 4, 0]} barSize={20} />
+                  <Bar dataKey="limit" name="Budget Limit" fill="rgba(255, 255, 255, 1)" radius={[0, 4, 4, 0]} barSize={20} />
                 </BarChart>
               </ResponsiveContainer>
             ) : (
@@ -206,7 +206,7 @@ export default function Dashboard() {
                 </div>
               ))
             ) : (
-              <div className="text-center py-6 text-white/40 text-sm">
+              <div className="text-center py-6 text-white/70 text-sm">
                 AI is analyzing your patterns...
               </div>
             )}
@@ -236,7 +236,7 @@ export default function Dashboard() {
                   </div>
                   <div>
                     <div className="text-sm font-medium">{t.merchant || 'Unknown'}</div>
-                    <div className="text-xs text-white/40">{new Date(t.txnDate).toLocaleDateString()}</div>
+                    <div className="text-xs text-white/70">{new Date(t.txnDate).toLocaleDateString()}</div>
                   </div>
                 </div>
                 <span className={`font-mono text-sm ${t.type === 'EXPENSE' ? 'text-white' : 'text-green-400'}`}>
@@ -244,7 +244,7 @@ export default function Dashboard() {
                 </span>
               </div>
             ))}
-            {transactions.length === 0 && <div className="text-center text-white/30 text-sm py-4">No recent transactions</div>}
+            {transactions.length === 0 && <div className="text-center text-white/50 text-sm py-4">No recent transactions</div>}
           </div>
         </div>
 
@@ -261,7 +261,7 @@ export default function Dashboard() {
                 <div key={g.goalId}>
                   <div className="flex justify-between text-xs mb-1">
                     <span className="font-medium">{g.goalName}</span>
-                    <span className="text-white/60">{Math.round(pct)}%</span>
+                    <span className="text-white/90">{Math.round(pct)}%</span>
                   </div>
                   <div className="w-full h-2 bg-white/10 rounded-full overflow-hidden">
                     <div className="h-full bg-gradient-to-r from-blue-500 to-cyan-500" style={{ width: `${pct}%` }}></div>
@@ -271,7 +271,7 @@ export default function Dashboard() {
             })}
             {goals.length === 0 && (
               <div className="text-center py-6">
-                <p className="text-white/40 text-sm mb-3">No goals set yet.</p>
+                <p className="text-white/70 text-sm mb-3">No goals set yet.</p>
                 <Link to="/goals" className="btn-vibrant-outline text-xs px-3 py-1 rounded-full">Create Goal</Link>
               </div>
             )}
@@ -289,14 +289,14 @@ export default function Dashboard() {
               <div key={n.notificationId} className="p-3 rounded bg-blue-500/5 border border-blue-500/10">
                 <div className="flex justify-between items-start mb-1">
                   <span className="text-xs font-bold text-blue-300 uppercase tracking-wider">System</span>
-                  <span className="text-[10px] text-white/40">{new Date(n.createdAt).toLocaleDateString()}</span>
+                  <span className="text-[10px] text-white/70">{new Date(n.createdAt).toLocaleDateString()}</span>
                 </div>
                 <h4 className="text-sm font-bold mb-1">{n.title}</h4>
-                <p className="text-xs text-white/60 line-clamp-2">{n.body}</p>
+                <p className="text-xs text-white/90 line-clamp-2">{n.body}</p>
               </div>
             ))}
             {notifications.filter(n => n.broadcast).length === 0 && (
-              <div className="text-center text-white/30 text-sm py-4">No recent announcements</div>
+              <div className="text-center text-white/50 text-sm py-4">No recent announcements</div>
             )}
           </div>
         </div>

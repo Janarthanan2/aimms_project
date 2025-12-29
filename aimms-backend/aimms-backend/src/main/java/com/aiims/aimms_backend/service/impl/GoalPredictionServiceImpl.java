@@ -25,9 +25,9 @@ public class GoalPredictionServiceImpl implements GoalPredictionService {
     private final WebClient webClient;
 
     public GoalPredictionServiceImpl(GoalRepository goalRepository,
-                                     TransactionRepository transactionRepository,
-                                     WebClient.Builder webClientBuilder,
-                                     @Value("${model.service.url}") String modelServiceUrl) {
+            TransactionRepository transactionRepository,
+            WebClient.Builder webClientBuilder,
+            @Value("${model.service.url}") String modelServiceUrl) {
         this.goalRepository = goalRepository;
         this.transactionRepository = transactionRepository;
         this.webClient = webClientBuilder.baseUrl(modelServiceUrl).build();
@@ -37,9 +37,9 @@ public class GoalPredictionServiceImpl implements GoalPredictionService {
     public Mono<GoalPredictionResponse> predictGoalCompletion(Long goalId, Long userId) {
         Goal goal = goalRepository.findById(goalId)
                 .orElseThrow(() -> new RuntimeException("Goal not found"));
-        
+
         if (!goal.getUser().getUserId().equals(userId)) {
-             throw new RuntimeException("Unauthorized access to goal");
+            throw new RuntimeException("Unauthorized access to goal");
         }
 
         List<Transaction> transactions = transactionRepository.findAllByUserUserId(userId);
@@ -49,13 +49,14 @@ public class GoalPredictionServiceImpl implements GoalPredictionService {
         request.put("goal_target", goal.getTargetAmount());
         request.put("goal_current", goal.getCurrentAmount());
         request.put("goal_deadline", goal.getDeadline() != null ? goal.getDeadline().toString() : "");
+        request.put("goal_created_at", goal.getCreatedAt() != null ? goal.getCreatedAt().toString() : "");
 
         List<Map<String, Object>> txnList = transactions.stream().map(t -> {
             Map<String, Object> map = new HashMap<>();
             map.put("date", t.getTxnDate().toLocalDate().toString());
             map.put("amount", t.getAmount());
             map.put("category", t.getCategory() != null ? t.getCategory().getName() : "Uncategorized");
-            
+
             // Determine type Credit/Debit
             String type = "Debit";
             if (t.getCategory() != null && "INCOME".equalsIgnoreCase(t.getCategory().getType())) {

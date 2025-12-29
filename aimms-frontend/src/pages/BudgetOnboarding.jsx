@@ -15,8 +15,12 @@ export default function BudgetOnboarding({ userId, onComplete }) {
             .then(res => {
                 const cats = res.data || []
                 // Filter out Salary/Income and map to initial state
+                const allowed = [
+                    "Bills", "Health", "Miscellaneous", "Food & Drink", "Shopping",
+                    "Groceries", "Transport", "Entertainment", "Subscriptions", "Rent", "Utilities"
+                ];
                 const initial = cats
-                    .filter(c => !['Salary', 'Income'].includes(c.name))
+                    .filter(c => allowed.includes(c.name))
                     .map(c => ({
                         name: c.name,
                         // Keep some default values for demo purposes if they match

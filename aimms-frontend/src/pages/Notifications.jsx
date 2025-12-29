@@ -52,85 +52,102 @@ export default function Notifications() {
     }
   };
 
-  if (!userId) return <div className="p-6">Please log in to view notifications.</div>;
+  if (!userId) return <div className="p-6 text-white">Please log in to view notifications.</div>;
 
   const Card = ({ note }) => {
     return (
-      <StyledWrapper>
-        <div className={`card ${note.read ? 'opacity-60' : ''}`}>
-          <div className="header">
-            <span className="icon">
-              <svg fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                <path clipRule="evenodd" d="M18 3a1 1 0 00-1.447-.894L8.763 6H5a3 3 0 000 6h.28l1.771 5.316A1 1 0 008 18h1a1 1 0 001-1v-4.382l6.553 3.276A1 1 0 0018 15V3z" fillRule="evenodd" />
-              </svg>
-            </span>
-            <div className="flex flex-col">
-              <p className="alert">
-                {note.priority} Priority
-                {note.isPinned && <span className="ml-2 bg-blue-100 text-blue-800 text-xs px-2 py-0.5 rounded">PINNED</span>}
-              </p>
-              {note.createdBy && (
-                <span className="text-xs text-gray-500">Posted by: {note.createdBy.name}</span>
+      <div className={`card-vibrant mb-4 border-l-4 ${note.read ? 'opacity-60 border-l-gray-500' : 'border-l-lime-500'}`}>
+        <div className="flex items-start gap-4">
+          <div className="flex-shrink-0 p-2 bg-lime-500/20 rounded-full text-lime-300">
+            <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M10 2a6 6 0 00-6 6v3.586l-.707.707A1 1 0 004 14h12a1 1 0 00.707-1.707L16 11.586V8a6 6 0 00-6-6zM10 18a3 3 0 01-3-3h6a3 3 0 01-3 3z" />
+            </svg>
+          </div>
+          <div className="flex-1">
+            <div className="flex justify-between items-start">
+              <div className="flex items-center gap-2 mb-1">
+                <span className={`text-xs font-bold px-2 py-0.5 rounded ${note.priority === 'HIGH' ? 'bg-red-500/20 text-red-300' :
+                    note.priority === 'MEDIUM' ? 'bg-yellow-500/20 text-yellow-300' :
+                      'bg-blue-500/20 text-blue-300'
+                  }`}>
+                  {note.priority}
+                </span>
+                {note.isPinned && <span className="bg-lime-500/20 text-lime-300 text-xs px-2 py-0.5 rounded">PINNED</span>}
+                <span className="text-xs text-white/50">{new Date(note.createdAt).toLocaleString()}</span>
+              </div>
+            </div>
+
+            <h4 className="font-bold text-lg text-white mb-1">{note.title}</h4>
+            <p className="text-white/80 text-sm leading-relaxed mb-3">
+              {note.body}
+            </p>
+
+            {note.createdBy && (
+              <p className="text-xs text-white/40 italic">Posted by: {note.createdBy.username || 'Admin'}</p>
+            )}
+
+            <div className="mt-4 flex justify-end">
+              {!note.read ? (
+                <button
+                  className="px-4 py-2 text-sm bg-lime-600 hover:bg-lime-700 text-white rounded-lg transition-colors font-semibold shadow-lg shadow-lime-900/20"
+                  onClick={() => handleMarkRead(note.notificationId)}
+                >
+                  Mark as Read
+                </button>
+              ) : (
+                <span className="text-xs text-lime-500/50 font-medium px-3 py-1 border border-lime-500/20 rounded-full">
+                  Read
+                </span>
               )}
             </div>
           </div>
-          <h4 className="font-bold text-gray-800 mt-2">{note.title}</h4>
-          <p className="message">
-            {note.body}
-          </p>
-          <div className="mt-2 text-xs text-gray-400">
-            {new Date(note.createdAt).toLocaleString()}
-          </div>
-          <div className="actions">
-            {!note.read ? (
-              <button className="mark-as-read" onClick={() => handleMarkRead(note.notificationId)}>
-                Mark as Read
-              </button>
-            ) : (
-              <button className="read" disabled>
-                Read
-              </button>
-            )}
-          </div>
         </div>
-      </StyledWrapper>
+      </div>
     );
   }
 
   return (
-    <div className="p-6 max-w-4xl mx-auto">
-      <div className="flex justify-between items-center mb-6">
-        <h2 className="text-2xl font-bold">Notifications</h2>
-        <div className="flex items-center space-x-2">
-          <span className="text-sm text-gray-600">Filter by:</span>
+    <div className="p-6 max-w-4xl mx-auto animate-fade-in text-white">
+      <div className="flex justify-between items-center mb-8">
+        <div>
+          <h2 className="text-3xl font-display font-bold gradient-text">Notifications</h2>
+          <p className="text-white/60 text-sm mt-1">Stay updated with latest announcements</p>
+        </div>
+
+        <div className="flex items-center gap-3 bg-black/20 p-2 rounded-lg border border-white/5">
+          <span className="text-sm text-lime-200/70 pl-2">Filter:</span>
           <select
             value={priorityFilter}
             onChange={(e) => setPriorityFilter(e.target.value)}
-            className="border rounded p-1 text-sm"
+            className="bg-transparent text-sm text-white border-none outline-none focus:ring-0 cursor-pointer"
           >
-            <option value="ALL">All Priorities</option>
-            <option value="HIGH">High</option>
-            <option value="MEDIUM">Medium</option>
-            <option value="LOW">Low</option>
+            <option value="ALL" className="bg-slate-900">All</option>
+            <option value="HIGH" className="bg-slate-900">High Priority</option>
+            <option value="MEDIUM" className="bg-slate-900">Medium Priority</option>
+            <option value="LOW" className="bg-slate-900">Low Priority</option>
           </select>
         </div>
       </div>
 
-      <div className="space-y-4 grid gap-4">
+      <div className="space-y-4">
         {notifications.length > 0 ? (
           notifications.map(n => <Card key={n.notificationId} note={n} />)
         ) : (
-          !loading && <div className="text-center py-8 text-gray-500">No notifications found.</div>
+          !loading && (
+            <div className="text-center py-12 card-vibrant border-dashed">
+              <p className="text-white/50 text-lg">No notifications found.</p>
+            </div>
+          )
         )}
       </div>
 
-      {loading && <div className="text-center py-4 text-gray-500">Loading...</div>}
+      {loading && <div className="text-center py-8 text-lime-300 animate-pulse">Loading notifications...</div>}
 
       {!loading && hasMore && notifications.length > 0 && (
-        <div className="text-center mt-6">
+        <div className="text-center mt-8">
           <button
             onClick={handleLoadMore}
-            className="bg-gray-100 hover:bg-gray-200 text-gray-800 px-4 py-2 rounded font-medium"
+            className="btn-vibrant-outline px-6 py-2 rounded-full text-sm"
           >
             Load More
           </button>
@@ -139,84 +156,3 @@ export default function Notifications() {
     </div>
   );
 }
-
-const StyledWrapper = styled.div`
-  .card {
-    max-width: 100%; /* Adapting max-width to fit list */
-    border-width: 1px;
-    border-color: rgba(219, 234, 254, 1);
-    border-radius: 1rem;
-    background-color: rgba(255, 255, 255, 1);
-    padding: 1rem;
-  }
-
-  .header {
-    display: flex;
-    align-items: center;
-    grid-gap: 1rem;
-    gap: 1rem;
-  }
-
-  .icon {
-    flex-shrink: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 9999px;
-    background-color: rgba(96, 165, 250, 1);
-    padding: 0.5rem;
-    color: rgba(255, 255, 255, 1);
-  }
-
-  .icon svg {
-    height: 1rem;
-    width: 1rem;
-  }
-
-  .alert {
-    font-weight: 600;
-    color: rgba(107, 114, 128, 1);
-  }
-
-  .message {
-    margin-top: 1rem;
-    color: rgba(107, 114, 128, 1);
-  }
-
-  .actions {
-    margin-top: 1.5rem;
-  }
-
-  .actions a, .actions button {
-    text-decoration: none;
-    cursor: pointer;
-    border: none;
-    font-family: inherit;
-  }
-
-  .mark-as-read, .read {
-    display: inline-block;
-    border-radius: 0.5rem;
-    width: 100%;
-    padding: 0.75rem 1.25rem;
-    text-align: center;
-    font-size: 0.875rem;
-    line-height: 1.25rem;
-    font-weight: 600;
-  }
-
-  .read {
-    background-color: rgba(59, 130, 246, 1);
-    color: rgba(255, 255, 255, 1);
-  }
-
-  .mark-as-read {
-    margin-top: 0.5rem;
-    background-color: rgba(249, 250, 251, 1);
-    color: rgba(107, 114, 128, 1);
-    transition: all .15s ease;
-  }
-
-  .mark-as-read:hover {
-    background-color: rgb(230, 231, 233);
-  }`;

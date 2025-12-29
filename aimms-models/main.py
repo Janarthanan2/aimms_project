@@ -97,6 +97,7 @@ class GoalRequest(BaseModel):
     goal_target: float
     goal_current: float
     goal_deadline: str
+    goal_created_at: str | None = None
 
 # --- Goal Prediction Endpoint ---
 import goal_prediction
@@ -111,7 +112,8 @@ async def predict_goal(request: GoalRequest):
             history,
             request.goal_target,
             request.goal_current,
-            request.goal_deadline
+            request.goal_deadline,
+            goal_created_at=request.goal_created_at
         )
         return result
     except Exception as e:

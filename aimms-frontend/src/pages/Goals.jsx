@@ -95,7 +95,7 @@ export default function Goals() {
       <div className="flex justify-between items-end">
         <div>
           <h2 className="text-3xl font-display font-bold gradient-text">Your Goals</h2>
-          <p className="text-white/60 mt-1">Track your progress and stay on budget</p>
+          <p className="text-yellow-50/80 mt-1 font-medium">Track your progress and stay on budget</p>
         </div>
         <button
           onClick={openCreateModal}
@@ -113,7 +113,7 @@ export default function Goals() {
         </div>
       ) : goals.length === 0 ? (
         <div className="text-center py-20 bg-white/5 rounded-2xl border border-white/10 backdrop-blur-sm">
-          <p className="text-white/50">No goals set yet.</p>
+          <p className="text-white/80">No goals set yet.</p>
         </div>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -142,7 +142,7 @@ export default function Goals() {
             <h3 className="text-xl font-bold text-white mb-6">{editingId ? 'Edit Goal' : 'Create New Goal'}</h3>
             <form onSubmit={handleSave} className="space-y-4">
               <div>
-                <label className="block text-sm text-white/70 mb-1">Goal Name</label>
+                <label className="block text-sm text-lime-100 mb-1">Goal Name</label>
                 <input
                   required
                   className="input-vibrant w-full"
@@ -153,7 +153,7 @@ export default function Goals() {
               </div>
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm text-white/70 mb-1">Target Amount (₹)</label>
+                  <label className="block text-sm text-lime-100 mb-1">Target Amount (₹)</label>
                   <input
                     required
                     type="number"
@@ -164,7 +164,7 @@ export default function Goals() {
                   />
                 </div>
                 <div>
-                  <label className="block text-sm text-white/70 mb-1">Current Saved (₹)</label>
+                  <label className="block text-sm text-lime-100 mb-1">Current Saved (₹)</label>
                   <input
                     type="number"
                     className="input-vibrant w-full"
@@ -175,7 +175,7 @@ export default function Goals() {
                 </div>
               </div>
               <div>
-                <label className="block text-sm text-white/70 mb-1">Deadline</label>
+                <label className="block text-sm text-lime-100 mb-1">Deadline</label>
                 <input
                   required
                   type="date"
@@ -215,8 +215,8 @@ function GoalCard({ goal, userId, onEdit, onDelete }) {
     <div className="card-vibrant group hover:translate-y-[-4px] transition-all duration-300 relative">
       <div className="flex justify-between items-start mb-4">
         <div>
-          <h3 className="font-bold text-xl text-white group-hover:text-accent-300 transition-colors">{goal.goalName}</h3>
-          <p className="text-xs text-white/50">{goal.deadline ? `Deadline: ${goal.deadline}` : 'No Deadline'}</p>
+          <h3 className="font-bold text-xl text-white group-hover:text-lime-300 transition-colors">{goal.goalName}</h3>
+          <p className="text-xs text-white/80 font-medium">{goal.deadline ? `Deadline: ${goal.deadline}` : 'No Deadline'}</p>
         </div>
         <div className="flex gap-2">
           <button onClick={onEdit} className="p-2 bg-white/10 hover:bg-white/20 rounded-lg text-blue-200 transition-colors" title="Edit">
@@ -229,7 +229,7 @@ function GoalCard({ goal, userId, onEdit, onDelete }) {
       </div>
 
       <div className="mb-6">
-        <div className="flex justify-between text-sm mb-2 text-white/80">
+        <div className="flex justify-between text-sm mb-2 text-white/90 font-bold">
           <span>₹{goal.currentAmount?.toLocaleString()}</span>
           <span>₹{goal.targetAmount?.toLocaleString()}</span>
         </div>

@@ -28,31 +28,30 @@ export default function GoalPredictionCard({ goalId, userId }) {
 
     if (error) return (
         <div className="bg-red-500/10 border border-red-500/30 rounded p-3 text-red-200 text-sm mt-4">
-             {error}
+            {error}
         </div>
     )
 
     if (!prediction) return null
 
-    const { predicted_completion_date, daily_savings_estimate, on_track, suggested_daily_cut } = prediction
+    const { predicted_completion_date, daily_savings_estimate, required_daily_savings, on_track, suggested_daily_cut } = prediction
 
     return (
-        <div className={`mt-4 rounded-xl p-4 border backdrop-blur-md ${
-            on_track ? 'bg-emerald-500/10 border-emerald-500/30' : 'bg-rose-500/10 border-rose-500/30'
-        }`}>
+        <div className={`mt-4 rounded-xl p-4 border backdrop-blur-md ${on_track ? 'bg-emerald-500/10 border-emerald-500/30' : 'bg-rose-500/10 border-rose-500/30'
+            }`}>
             <h4 className={`text-sm font-semibold uppercase tracking-wider mb-2 ${on_track ? 'text-emerald-300' : 'text-rose-300'}`}>
                 {on_track ? '🎉 On Track' : '⚠️ Behind Schedule'}
             </h4>
-            
+
             <div className="space-y-3">
                 <div className="flex justify-between items-center text-sm">
                     <span className="text-white/70">Estimated Completion</span>
                     <span className="font-mono text-white font-medium">{predicted_completion_date}</span>
                 </div>
-                
+
                 <div className="flex justify-between items-center text-sm">
-                    <span className="text-white/70">Avg. Daily Savings</span>
-                    <span className="font-mono text-white font-medium">₹{daily_savings_estimate?.toFixed(2)}</span>
+                    <span className="text-white/70">Required Daily Savings</span>
+                    <span className="font-mono text-emerald-300 font-medium">₹{required_daily_savings?.toFixed(2)}</span>
                 </div>
 
                 {!on_track && suggested_daily_cut > 0 && (

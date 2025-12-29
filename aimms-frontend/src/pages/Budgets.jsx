@@ -44,7 +44,7 @@ export default function Budgets() {
       <div className="flex justify-between items-end">
         <div>
           <h2 className="text-3xl font-display font-bold gradient-text">Your Monthly Budget</h2>
-          <p className="text-white/60 mt-1">
+          <p className="text-yellow-50/80 mt-1 font-medium">
             Track your daily spending and protect your savings.
           </p>
         </div>
@@ -76,21 +76,21 @@ export default function Budgets() {
       {/* High Level Summary */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
         <div className="card-vibrant bg-white/5 border-white/10">
-          <div className="text-sm text-white/50 uppercase tracking-wider mb-1">Income</div>
+          <div className="text-sm text-lime-100/70 uppercase tracking-wider mb-1 font-bold">Income</div>
           <div className="text-2xl font-bold">₹{profile.monthlyIncome?.toLocaleString()}</div>
         </div>
         <div className="card-vibrant bg-white/5 border-white/10">
-          <div className="text-sm text-white/50 uppercase tracking-wider mb-1">Fixed Expenses</div>
+          <div className="text-sm text-lime-100/70 uppercase tracking-wider mb-1 font-bold">Fixed Expenses</div>
           <div className="text-2xl font-bold">₹{profile.fixedExpensesAmount?.toLocaleString()}</div>
         </div>
         <div className="card-vibrant bg-white/5 border-white/10">
-          <div className="text-sm text-white/50 uppercase tracking-wider mb-1">Total Spent (Variable)</div>
+          <div className="text-sm text-lime-100/70 uppercase tracking-wider mb-1 font-bold">Total Spent (Variable)</div>
           <div className="text-2xl font-bold">₹{totalSpent.toLocaleString()}</div>
         </div>
         <div className={`card - vibrant border ${isSavingsAtRisk ? 'bg-orange-500/10 border-orange-500/30' : 'bg-emerald-500/10 border-emerald-500/30'} `}>
           <div className={`text - sm uppercase tracking - wider mb - 1 ${isSavingsAtRisk ? 'text-orange-300' : 'text-emerald-300'} `}>Projected Savings</div>
           <div className="text-2xl font-bold">₹{projectedSavings.toLocaleString()}</div>
-          <div className="text-xs mt-1 text-white/50">Target: ₹{profile.savingsTarget?.toLocaleString()}</div>
+          <div className="text-xs mt-1 text-white/80 font-medium">Target: ₹{profile.savingsTarget?.toLocaleString()}</div>
         </div>
       </div>
 
@@ -112,18 +112,23 @@ export default function Budgets() {
       <div>
         <h3 className="text-xl font-bold mb-4">Category Breakdown</h3>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {budgets.map(b => (
-            <BudgetCard
-              key={b.budgetId}
-              budget={b}
-              transactions={transactions.filter(t =>
-                (t.category?.name || t.predictedCategory)?.toLowerCase() === b.name.toLowerCase() &&
-                new Date(t.txnDate).getMonth() === new Date().getMonth() &&
-                new Date(t.txnDate).getFullYear() === new Date().getFullYear()
-              )}
-              alertThresholds={profile?.alertThresholds}
-            />
-          ))}
+          {budgets
+            .filter(b => [
+              "Bills", "Health", "Miscellaneous", "Food & Drink", "Shopping",
+              "Groceries", "Transport", "Entertainment", "Subscriptions", "Rent", "Utilities"
+            ].includes(b.name))
+            .map(b => (
+              <BudgetCard
+                key={b.budgetId}
+                budget={b}
+                transactions={transactions.filter(t =>
+                  (t.category?.name || t.predictedCategory)?.toLowerCase() === b.name.toLowerCase() &&
+                  new Date(t.txnDate).getMonth() === new Date().getMonth() &&
+                  new Date(t.txnDate).getFullYear() === new Date().getFullYear()
+                )}
+                alertThresholds={profile?.alertThresholds}
+              />
+            ))}
         </div>
       </div>
     </div>

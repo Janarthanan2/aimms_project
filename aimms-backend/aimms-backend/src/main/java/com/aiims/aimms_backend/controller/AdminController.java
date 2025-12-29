@@ -15,10 +15,13 @@ import java.util.Map;
 public class AdminController {
     private final AdminRepository adminRepo;
     private final UserRepository userRepo;
+    private final com.aiims.aimms_backend.config.JwtUtils jwtUtils;
 
-    public AdminController(AdminRepository adminRepo, UserRepository userRepo) {
+    public AdminController(AdminRepository adminRepo, UserRepository userRepo,
+            com.aiims.aimms_backend.config.JwtUtils jwtUtils) {
         this.adminRepo = adminRepo;
         this.userRepo = userRepo;
+        this.jwtUtils = jwtUtils;
     }
 
     @GetMapping("/list")
@@ -46,7 +49,11 @@ public class AdminController {
                 return ResponseEntity.status(401).body(Map.of("message", "Invalid credentials"));
             }
 
+            // Generate Token
+            String token = jwtUtils.generateToken(admin.getEmail());
+
             return ResponseEntity.ok(Map.of(
+                    "token", token,
                     "id", admin.getAdminId(),
                     "adminId", admin.getAdminId(),
                     "name", admin.getName(),

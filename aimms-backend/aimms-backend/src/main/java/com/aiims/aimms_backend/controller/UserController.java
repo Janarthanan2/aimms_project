@@ -14,10 +14,18 @@ import java.util.Map;
 public class UserController {
     private final UserRepository repo;
     private final UserService userService;
+    private final com.aiims.aimms_backend.config.JwtUtils jwtUtils;
 
-    public UserController(UserRepository repo, UserService userService) {
+    public UserController(UserRepository repo, UserService userService,
+            com.aiims.aimms_backend.config.JwtUtils jwtUtils) {
         this.repo = repo;
         this.userService = userService;
+        this.jwtUtils = jwtUtils;
+    }
+
+    @GetMapping("/ping")
+    public ResponseEntity<String> ping() {
+        return ResponseEntity.ok("PONG");
     }
 
     @GetMapping
@@ -69,7 +77,11 @@ public class UserController {
                 return ResponseEntity.status(401).body(Map.of("message", "Invalid credentials"));
             }
 
+            // Generate Token
+            String token = jwtUtils.generateToken(user.getEmail());
+
             return ResponseEntity.ok(Map.of(
+                    "token", token,
                     "id", user.getUserId(),
                     "userId", user.getUserId(),
                     "name", user.getName(),

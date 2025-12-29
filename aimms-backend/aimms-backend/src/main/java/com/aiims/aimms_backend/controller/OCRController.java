@@ -19,9 +19,17 @@ public class OCRController {
     }
 
     @PostMapping(value = "/upload", consumes = "multipart/form-data")
-    public Mono<ResponseEntity<ReceiptDTO>> uploadReceipt(@RequestParam("file") MultipartFile file) {
-        return ocrService.extractReceiptData(file)
+    public Mono<ResponseEntity<ReceiptDTO>> uploadReceipt(@RequestParam("file") MultipartFile file,
+            java.security.Principal principal) {
+        System.out.println("OCR Controller: Received upload request from "
+                + (principal != null ? principal.getName() : "Anonymous"));
+        String email = principal != null ? principal.getName() : "anonymous@aimms.com";
+        return ocrService.extractReceiptData(file, email)
                 .map(ResponseEntity::ok)
+                .doOnError(e -> {
+                    System.err.println("OCR Controller Error: " + e.getMessage());
+                    e.printStackTrace();
+                })
                 .defaultIfEmpty(ResponseEntity.badRequest().build());
     }
 }

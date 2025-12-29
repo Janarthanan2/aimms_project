@@ -11,6 +11,9 @@ public class GoalPredictionResponse {
     @JsonProperty("daily_savings_estimate")
     private Double dailySavingsEstimate;
 
+    @JsonProperty("required_daily_savings")
+    private Double requiredDailySavings;
+
     @JsonProperty("on_track")
     private Boolean onTrack;
 

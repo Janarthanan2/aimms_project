@@ -18,6 +18,7 @@ export default function LoginUser() {
             const user = await loginUser(email, password)
 
             localStorage.setItem('userType', 'user')
+            localStorage.setItem('token', user.token) // Store JWT Token
             localStorage.setItem('userId', user.id)
             localStorage.setItem('userName', user.name)
             localStorage.setItem('role', user.role) // Store role

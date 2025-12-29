@@ -8,12 +8,43 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Service
-public class UserService {
+public class UserService implements org.springframework.security.core.userdetails.UserDetailsService {
 
     private final UserRepository userRepository;
+    private final com.aiims.aimms_backend.repository.AdminRepository adminRepository;
 
-    public UserService(UserRepository userRepository) {
+    public UserService(UserRepository userRepository,
+            com.aiims.aimms_backend.repository.AdminRepository adminRepository) {
         this.userRepository = userRepository;
+        this.adminRepository = adminRepository;
+    }
+
+    @Override
+    public org.springframework.security.core.userdetails.UserDetails loadUserByUsername(String email)
+            throws org.springframework.security.core.userdetails.UsernameNotFoundException {
+
+        // 1. Try to find Admin first
+        java.util.Optional<com.aiims.aimms_backend.model.Admin> adminOpt = adminRepository.findByEmail(email);
+        if (adminOpt.isPresent()) {
+            com.aiims.aimms_backend.model.Admin admin = adminOpt.get();
+            return org.springframework.security.core.userdetails.User
+                    .withUsername(admin.getEmail())
+                    .password(admin.getPasswordHash())
+                    .roles(admin.getRole().name())
+                    .build();
+        }
+
+        // 2. Fallback to User
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new org.springframework.security.core.userdetails.UsernameNotFoundException(
+                        "User not found with email: " + email));
+
+        // Create UserDetails from User entity
+        return org.springframework.security.core.userdetails.User
+                .withUsername(user.getEmail())
+                .password(user.getPasswordHash())
+                .roles(user.getRole().name())
+                .build();
     }
 
     /**

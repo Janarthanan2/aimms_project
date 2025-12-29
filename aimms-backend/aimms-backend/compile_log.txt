@@ -1,0 +1,53 @@
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] ----------------------< com.aiims:aimms-backend >-----------------------
+[INFO] Building aimms-backend 0.0.1-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ aimms-backend ---
+[INFO] Copying 2 resources from src\main\resources to target\classes
+[INFO] Copying 4 resources from src\main\resources to target\classes
+[INFO] 
+[INFO] --- compiler:3.14.1:compile (default-compile) @ aimms-backend ---
+[INFO] Recompiling the module because of changed source code.
+[INFO] Compiling 89 source files with javac [debug parameters release 17] to target\classes
+[INFO] /C:/Users/JANARTHANAN/OneDrive/Documents/Main Project/aimms-backend/aimms-backend/src/main/java/com/aiims/aimms_backend/service/ModelClientService.java: C:\Users\JANARTHANAN\OneDrive\Documents\Main Project\aimms-backend\aimms-backend\src\main\java\com\aiims\aimms_backend\service\ModelClientService.java uses unchecked or unsafe operations.
+[INFO] /C:/Users/JANARTHANAN/OneDrive/Documents/Main Project/aimms-backend/aimms-backend/src/main/java/com/aiims/aimms_backend/service/ModelClientService.java: Recompile with -Xlint:unchecked for details.
+[INFO] -------------------------------------------------------------
+[WARNING] COMPILATION WARNING : 
+[INFO] -------------------------------------------------------------
+[WARNING] /C:/Users/JANARTHANAN/OneDrive/Documents/Main Project/aimms-backend/aimms-backend/src/main/java/com/aiims/aimms_backend/model/Transaction.java:[27,20] Not generating setAmount(): A method with that name already exists
+[INFO] 1 warning
+[INFO] -------------------------------------------------------------
+[INFO] -------------------------------------------------------------
+[ERROR] COMPILATION ERROR : 
+[INFO] -------------------------------------------------------------
+[ERROR] /C:/Users/JANARTHANAN/OneDrive/Documents/Main Project/aimms-backend/aimms-backend/src/main/java/com/aiims/aimms_backend/service/AIAlertService.java:[89,45] cannot find symbol
+  symbol:   method getUsername()
+  location: class com.aiims.aimms_backend.model.User
+[ERROR] /C:/Users/JANARTHANAN/OneDrive/Documents/Main Project/aimms-backend/aimms-backend/src/main/java/com/aiims/aimms_backend/service/AIAlertService.java:[110,49] cannot find symbol
+  symbol:   method getUsername()
+  location: class com.aiims.aimms_backend.model.User
+[INFO] 2 errors 
+[INFO] -------------------------------------------------------------
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  7.063 s
+[INFO] Finished at: 2025-12-29T17:18:02+05:30
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal org.apache.maven.plugins:maven-compiler-plugin:3.14.1:compile (default-compile) on project aimms-backend: Compilation failure: Compilation failure: 
+[ERROR] /C:/Users/JANARTHANAN/OneDrive/Documents/Main Project/aimms-backend/aimms-backend/src/main/java/com/aiims/aimms_backend/service/AIAlertService.java:[89,45] cannot find symbol
+[ERROR]   symbol:   method getUsername()
+[ERROR]   location: class com.aiims.aimms_backend.model.User
+[ERROR] /C:/Users/JANARTHANAN/OneDrive/Documents/Main Project/aimms-backend/aimms-backend/src/main/java/com/aiims/aimms_backend/service/AIAlertService.java:[110,49] cannot find symbol
+[ERROR]   symbol:   method getUsername()
+[ERROR]   location: class com.aiims.aimms_backend.model.User
+[ERROR] -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoFailureException

@@ -116,21 +116,21 @@ export default function Transactions() {
 
       {/* Simple User Selector for Demo */}
       {isAdmin && (
-        <form onSubmit={handleSearch} className="mb-6 flex items-center gap-4 bg-gray-50 p-4 rounded border">
+        <form onSubmit={handleSearch} className="mb-6 flex items-center gap-4 card-vibrant p-4 border border-lime-500/30">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Search User Transactions</label>
+            <label className="block text-sm font-medium text-lime-100 mb-1">Search User Transactions</label>
             <div className="flex gap-2">
               <input
                 type="number"
                 placeholder="Enter User ID"
                 value={userId}
                 onChange={(e) => setUserId(e.target.value)}
-                className="border rounded p-2 w-40"
+                className="input-vibrant w-40"
                 required
               />
               <button
                 type="submit"
-                className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+                className="btn-vibrant px-4 py-2 rounded-full hover:scale-105"
               >
                 Search
               </button>
@@ -142,97 +142,97 @@ export default function Transactions() {
       <div className={`grid grid-cols-1 ${!isAdmin ? 'md:grid-cols-3' : ''} gap-6`}>
         {/* Form - Only show for non-admin users */}
         {!isAdmin && (
-          <div className="bg-white p-6 rounded shadow h-fit">
-            <h3 className="text-lg font-semibold mb-4">Add Transaction</h3>
+          <div className="card-vibrant h-fit">
+            <h3 className="text-lg font-bold mb-4 text-white">Add Transaction</h3>
             <form onSubmit={handleSubmit} className="space-y-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700">Amount</label>
-                <input type="number" name="amount" value={formData.amount} onChange={handleInputChange} required className="mt-1 block w-full border rounded p-2" />
+                <label className="block text-sm font-medium text-lime-100 mb-1">Amount</label>
+                <input type="number" name="amount" value={formData.amount} onChange={handleInputChange} required className="input-vibrant w-full" />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700">Description</label>
-                <input type="text" name="description" value={formData.description} onChange={handleInputChange} required className="mt-1 block w-full border rounded p-2" />
+                <label className="block text-sm font-medium text-lime-100 mb-1">Description</label>
+                <input type="text" name="description" value={formData.description} onChange={handleInputChange} required className="input-vibrant w-full" />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700">Merchant</label>
-                <input type="text" name="merchant" value={formData.merchant} onChange={handleInputChange} required className="mt-1 block w-full border rounded p-2" />
+                <label className="block text-sm font-medium text-lime-100 mb-1">Merchant</label>
+                <input type="text" name="merchant" value={formData.merchant} onChange={handleInputChange} required className="input-vibrant w-full" />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700">
-                  Category <span className="text-gray-400 font-normal">(Optional - AI will detect if empty)</span>
+                <label className="block text-sm font-medium text-lime-100 mb-1">
+                  Category <span className="text-lime-300/50 font-normal">(Optional - AI will detect if empty)</span>
                 </label>
                 <select
                   name="category"
                   value={formData.category}
                   onChange={handleInputChange}
-                  className="mt-1 block w-full border rounded p-2"
+                  className="input-vibrant w-full"
                 >
-                  <option value="">Auto-Detect (AI)</option>
+                  <option value="" className="text-black">Auto-Detect (AI)</option>
                   {categories.map(cat => (
-                    <option key={cat.categoryId} value={cat.name}>{cat.name}</option>
+                    <option key={cat.categoryId} value={cat.name} className="text-black">{cat.name}</option>
                   ))}
                 </select>
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700">Payment Mode</label>
+                <label className="block text-sm font-medium text-lime-100 mb-1">Payment Mode</label>
                 <select
                   name="paymentMode"
                   value={formData.paymentMode}
                   onChange={handleInputChange}
-                  className="mt-1 block w-full border rounded p-2"
+                  className="input-vibrant w-full"
                 >
-                  <option value="Cash">Cash</option>
-                  <option value="Card">Card</option>
-                  <option value="UPI">UPI</option>
-                  <option value="NetBanking">NetBanking</option>
+                  <option value="Cash" className="text-black">Cash</option>
+                  <option value="Card" className="text-black">Card</option>
+                  <option value="UPI" className="text-black">UPI</option>
+                  <option value="NetBanking" className="text-black">NetBanking</option>
                 </select>
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700">Date</label>
-                <input type="date" name="txnDate" value={formData.txnDate} onChange={handleInputChange} required className="mt-1 block w-full border rounded p-2" />
+                <label className="block text-sm font-medium text-lime-100 mb-1">Date</label>
+                <input type="date" name="txnDate" value={formData.txnDate} onChange={handleInputChange} required className="input-vibrant w-full" />
               </div>
 
-              <button type="submit" className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700">Add Transaction</button>
+              <button type="submit" className="w-full btn-vibrant py-2 mt-2">Add Transaction</button>
             </form>
           </div>
         )}
 
         {/* List */}
-        <div className={`${!isAdmin ? 'md:col-span-2' : ''} bg-white rounded shadow overflow-hidden`}>
+        <div className={`${!isAdmin ? 'md:col-span-2' : ''} card-vibrant overflow-hidden`}>
           <div className="overflow-x-auto">
-            <table className="min-w-full divide-y divide-gray-200">
-              <thead className="bg-gray-50">
+            <table className="min-w-full divide-y divide-white/10">
+              <thead className="bg-black/20">
                 <tr>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Date</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Merchant</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Method</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Amount</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Category</th>
-                  {!isAdmin && <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase">Actions</th>}
+                  <th className="px-6 py-3 text-left text-xs font-bold text-lime-200 uppercase tracking-wider">Date</th>
+                  <th className="px-6 py-3 text-left text-xs font-bold text-lime-200 uppercase tracking-wider">Merchant</th>
+                  <th className="px-6 py-3 text-left text-xs font-bold text-lime-200 uppercase tracking-wider">Method</th>
+                  <th className="px-6 py-3 text-left text-xs font-bold text-lime-200 uppercase tracking-wider">Amount</th>
+                  <th className="px-6 py-3 text-left text-xs font-bold text-lime-200 uppercase tracking-wider">Category</th>
+                  {!isAdmin && <th className="px-6 py-3 text-right text-xs font-bold text-lime-200 uppercase tracking-wider">Actions</th>}
                 </tr>
               </thead>
-              <tbody className="divide-y divide-gray-200">
+              <tbody className="divide-y divide-white/10">
                 {loading ? (
-                  <tr><td colSpan={isAdmin ? "4" : "5"} className="p-4 text-center">Loading...</td></tr>
+                  <tr><td colSpan={isAdmin ? "4" : "5"} className="p-4 text-center text-white/70">Loading...</td></tr>
                 ) : transactions.length === 0 ? (
-                  <tr><td colSpan={isAdmin ? "4" : "5"} className="p-4 text-center text-gray-500">
+                  <tr><td colSpan={isAdmin ? "4" : "5"} className="p-4 text-center text-white/50">
                     {isAdmin && !userId ? "Enter a User ID to view transactions." : "No transactions found."}
                   </td></tr>
                 ) : (
                   transactions.map(t => (
-                    <tr key={t.transactionId}>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{t.txnDate}</td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{t.merchant}</td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{t.paymentMode || '-'}</td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm font-bold text-gray-900">${t.amount}</td>
+                    <tr key={t.transactionId} className="hover:bg-white/5 transition-colors">
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-yellow-50">{t.txnDate}</td>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-white font-medium">{t.merchant}</td>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-yellow-50/80">{t.paymentMode || '-'}</td>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm font-bold text-white">₹{t.amount}</td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                        <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                        <span className="px-2 py-1 inline-flex text-xs leading-5 font-bold rounded-full bg-lime-500/20 text-lime-200 border border-lime-500/30">
                           {t.predictedCategory || t.category?.name || 'Uncategorized'}
                         </span>
                       </td>
                       {!isAdmin && (
                         <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                          <button onClick={() => handleDelete(t.transactionId)} className="text-red-600 hover:text-red-900">Delete</button>
+                          <button onClick={() => handleDelete(t.transactionId)} className="text-red-400 hover:text-red-300 transition-colors">Delete</button>
                         </td>
                       )}
                     </tr>

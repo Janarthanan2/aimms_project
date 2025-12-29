@@ -5,5 +5,5 @@ import org.springframework.web.multipart.MultipartFile;
 import reactor.core.publisher.Mono;
 
 public interface OCRService {
-    Mono<ReceiptDTO> extractReceiptData(MultipartFile file);
+    Mono<ReceiptDTO> extractReceiptData(MultipartFile file, String userEmail);
 }
